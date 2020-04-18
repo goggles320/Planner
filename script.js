@@ -5,34 +5,58 @@ var weekdate = moment().weekday();
 var time = [09,10,11,12,13,14,15,16,17];
 //Append the date to page
 $("#currentDay").append(now);
-
+//Function to bring up any localstorage data
+init();
 //Check current day for weekday or weekend
+weekdate = 3; //Testing with weekdate as today is Weekend
 
-//--------------------------------------------------------------------------
-/*if (weekdate > 5 )
+if (weekdate > 5 )
     {
-    //TODAY IS WEEKEND
+    //TODAY IS WEEKEND - won't show planner for weekend
     $(".container").text("Today is the weekend! Stop working!");  
     }
-    else 
+else 
+{   
+    //TODAY IS WEEKDAY - create timeblocks with function
+    //Generate current hour figure     
+    hourNow = moment().format('HH');
+    //Iterate through the time array
+    for (var i=0;i<time.length;i++)
+    {   
+        //Create timeblocks
+        timeslot();
+        //Determine whether timeblock generate is in past, present or future
+        selector = "#hr"+time[i];
+        if (hourNow > time[i])
+        {   
+            $(selector).attr("moment","past");   
+        }
+        else if (hourNow == time[i]) 
+        {   
+            $(selector).attr("moment","present");
+        }
+        else
+        {   
+            $(selector).attr("moment","future");   
+        }
+    }
+    
+    //Save event into local storage based on the hour clicked
+    $(".iconBtn").on("click",function()
     {
-    timeslot(); 
-        //TODAY IS WEEKDAY
-        //EVENT LISTENER FOR SAVING CALENDER ENTRY when save button is pushed---------------------------------------------------------------------
-        $(".btn").on("click",function()
-        {
-            //Grab the button number assigned to each timeblock  
-            calenderEntry = ($(this).attr("value"));
-            console.log(calenderEntry)
-            //Use the button number to retrieve the calender entry input
-            console.log(inputEntry)
-        })
+        hourKey = $(this).attr("time");
+        hourId = "#hr"+ hourKey;
+        //console.log(hourId);
+        
+        localStorage.setItem(hourId, $(hourId).val());
+    })
 }
-*/
+
 
 //Function to generate the time slots
 function timeslot()
-{
+{   
+    //Generates new one timeblock period
     newContainer = $("<div>");
     newContainer.addClass("input-group-prepend blockContainer container-fluid");
     newRow = $("<div>");
@@ -41,7 +65,7 @@ function timeslot()
     newSpan = $("<span>");
     newSpan.addClass("input-group-text");
     newSpan.attr("id", "timeblock");
-    //New Code here
+    //Check for AM/PM and convert if required
     if (time[i]>12)
     {
         timeText = time[i]-12;
@@ -68,50 +92,12 @@ function timeslot()
     $(".container").append(newContainer);
 }
 
-
-hourNow = moment().format('HH');
-
-for (var i=0;i<time.length;i++)
-{
-    timeslot();
-    console.log("The time now is: "+ hourNow);
-    console.log("the time block is: " + time[i]);
-    //debugger;
-    selector = "#hr"+time[i];
-    if (hourNow > time[i])
-    {   
-        $(selector).attr("moment","past");
-        //$(".text-input").attr("moment","past");
-        console.log("the past");
-    }
-    else if (hourNow == time[i]) 
-    {   
-        $(selector).attr("moment","present");
-        //$(".text-input").attr("moment","present");
-        console.log("the present");
-    }
-    else
-    {   
-        $(selector).attr("moment","future");
-        //$(".text-input").attr("moment","future");
-        console.log("the future");
-    }
-    
-}
-
-$(".iconBtn").on("click",function()
-{
-    hourKey = $(this).attr("time");
-    hourId = "#hr"+ hourKey;
-    //console.log(hourId);
-    
-    localStorage.setItem(hourId, $(hourId).val());
-})
-
+//Initiate function
 function init()
 {
     for (var i=0;i<time.length;i++)
-    {
+    {   
+        //Get data from Local Storage
         var newhourId = '#hr' + time[i];
         var text = localStorage.getItem(newhourId);
         if (text!=null)
@@ -121,5 +107,3 @@ function init()
     }
 
 }
-
-init();
