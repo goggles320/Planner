@@ -1,0 +1,59 @@
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+  color: black;
+  border-radius: 0;
+  border-bottom: 10px solid black;
+  font-family: 'Amatic SC', cursive;
+}
+
+[moment~="past"]
+{
+  background-color: rgba(220,220,220,0.6);
+}
+
+.input-group-text
+{
+  position: absolute;
+  width: 70px;
+  background-color: white;
+  border: 2px solid navy;
+  border-left: 0px;
+}
+
+[moment~="present"]
+{
+  background-color: rgba(255,0,0,0.7) ;
+}
+
+.container
+{
+  margin-bottom:20px;
+}
+
+[moment~="future"]
+{
+  background-color: rgba(154,205,50,0.8);
+}
+
+.iconBtn
+{
+  width:50px;
+}
+
+#timeblock
+{
+  font-family: 'Amatic SC', cursive;
+}
+
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) 
+{
+  /* For desktop: */
+  .col-10 {width: 83.33%;}
+}
