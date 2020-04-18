@@ -8,7 +8,7 @@ $("#currentDay").append(now);
 //Function to bring up any localstorage data
 init();
 //Check current day for weekday or weekend
-weekdate = 3; //Testing with weekdate as today is Weekend
+//weekdate = 3; //Testing with weekdate as today is Weekend
 
 if (weekdate > 5 )
     {
