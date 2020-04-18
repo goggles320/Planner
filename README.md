@@ -16,3 +16,8 @@ As an Employee with a busy schedule, I would want to add important events to a d
 - [x] Upon refreshing of page, events saved will persist
 - [x] NO WORK ON WEEKENDS
 
+##### Sample of event planner
+![Sample of Planner](./demo.gif)
+
+##### Link to Repo
+https://goggles320.github.io/Planner/
